@@ -1,5 +1,7 @@
+import Type from "interfaces/Transaction/Type";
+
 interface Props{
-    title: string
+    title: Type
 }
 
 export default Props;

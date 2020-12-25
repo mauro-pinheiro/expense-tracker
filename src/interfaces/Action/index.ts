@@ -3,7 +3,7 @@ import Type from "./Type";
 
 interface Action {
     type: Type,
-    payload: number | Transaction
+    payload: number | string | Transaction
 }
 
 export default Action

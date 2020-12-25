@@ -1,4 +1,4 @@
-import Category from "interfaces/Transaction/Categoria";
+import Category from "interfaces/Transaction/Category";
 import Type from "interfaces/Transaction/Type";
 
 interface Transaction{
@@ -6,7 +6,7 @@ interface Transaction{
     type: Type,
     category: Category
     amount: number,
-    date: Date
+    date: string
 }
 
 export default Transaction;

@@ -9,7 +9,7 @@ import { ExpenseTrackerContext } from 'context';
 const List: React.FC = () => {
     const classes = useStyles();
 
-    const {state} = useContext(ExpenseTrackerContext);
+    const {state, deleteTransaction} = useContext(ExpenseTrackerContext);
 
     // console.log(state);
 
@@ -23,9 +23,9 @@ const List: React.FC = () => {
                                 <MoneyOff />
                             </Avatar>
                         </ListItemAvatar>
-                        <ListItemText primary={transaction.category} secondary={`$${transaction.amount} - $${transaction.date}`} />
+                        <ListItemText primary={transaction.category.name} secondary={`$${transaction.amount} - $${transaction.date}`} />
                         <ListItemSecondaryAction>
-                            <IconButton edge="end" aria-label="delete" onClick={() => { }}>
+                            <IconButton edge="end" aria-label="delete" onClick={() => deleteTransaction(transaction.id)}>
                                 <Delete />
                             </IconButton>
                         </ListItemSecondaryAction>
