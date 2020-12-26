@@ -27,6 +27,10 @@ services:
       args: 
         WWWGROUP: ${WWWGROUP:-1000}
     container_name: expense-tracker-api
+    environment: 
+      WWWUSER: ${WWWUSER:-1000}
+    ports:
+      - "${API_PORT:-8000}:80"
     working_dir: /var/www/html
     volumes: 
       - ./api:/var/www/html
@@ -49,17 +53,3 @@ services:
       - mysql_data:/var/lib/mysql
     networks: 
       - expense-tracker
-  
-  server:
-    image: nginx:alpine
-    container_name: nginx-server
-    ports: 
-      - "${APP_PORT:-8000}:80"
-    working_dir: /var/www/html
-    volumes: 
-      - ./api:/var/www/html
-      - ./docker/nginx/:/etc/nginx/conf.d/
-    networks: 
-      - expense-tracker
-    depends_on: 
-      - api
