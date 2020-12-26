@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class TransactionController extends Controller
 {
 
-    private $model = User::class;
+    private $model = Transaction::class;
 
     /**
      * Display a listing of the resource.

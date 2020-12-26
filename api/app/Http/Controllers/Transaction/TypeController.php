@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Transaction;
 
+use App\Http\Controllers\Controller;
+use App\Models\Transaction\Type;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class TypeController extends Controller
 {
 
-    private $model = User::class;
+    private $model = Type::class;
 
     /**
      * Display a listing of the resource.
