@@ -1,0 +1,65 @@
+version: '3'
+
+networks: 
+  expense-tracker:
+
+volumes: 
+  mysql_data:
+
+services:
+  app:
+    build: ./app
+    container_name: expense-tracker-app
+    ports: 
+      - "${APP_PORT:-3000}:3000"
+    working_dir: /usr/app
+    command: yarn start
+    volumes: 
+      - ./app/src:/usr/app/src
+    networks: 
+      - expense-tracker
+    depends_on: 
+      - api
+  
+  api:
+    build: 
+      context: ./api/docker/8.0
+      args: 
+        WWWGROUP: ${WWWGROUP:-1000}
+    container_name: expense-tracker-api
+    working_dir: /var/www/html
+    volumes: 
+      - ./api:/var/www/html
+    networks: 
+      - expense-tracker
+    depends_on: 
+      - mysql
+  
+  mysql:
+    image: mariadb:10
+    container_name: expense-tracker-db
+    environment: 
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    ports: 
+      - "${DB_PORT:-3306}:3306"
+    volumes: 
+      - mysql_data:/var/lib/mysql
+    networks: 
+      - expense-tracker
+  
+  server:
+    image: nginx:alpine
+    container_name: nginx-server
+    ports: 
+      - "${APP_PORT:-8000}:80"
+    working_dir: /var/www/html
+    volumes: 
+      - ./api:/var/www/html
+      - ./docker/nginx/:/etc/nginx/conf.d/
+    networks: 
+      - expense-tracker
+    depends_on: 
+      - api
