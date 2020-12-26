@@ -31,9 +31,11 @@ services:
       WWWUSER: ${WWWUSER:-1000}
     ports:
       - "${API_PORT:-8000}:80"
+    entrypoint: ["start-container"]
     working_dir: /var/www/html
     volumes: 
       - ./api:/var/www/html
+      - ./api/.env.container:/var/www/html/.env
     networks: 
       - expense-tracker
     depends_on: 
