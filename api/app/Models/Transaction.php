@@ -37,6 +37,15 @@ class Transaction extends Model
 
     protected $guard = ["id"];
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'date' => 'datetime',
+    ];
+
     public function category(){
         return $this->belongsTo(Category::class, 'transactionCategoryId');
     }

@@ -41,6 +41,7 @@ model User {
 model Transaction {
     id                    Int                 @id @default(autoincrement())
     amount                Float
+    date                  DateTime            @default(now())
     created_at            DateTime?
     updated_at            DateTime?
     userId                Int
